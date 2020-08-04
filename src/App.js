@@ -17,7 +17,6 @@ class App extends Component {
       alert("Can not be Blank!")
       return;
     }
-    
     this.props.addItem(this.state.inputValue)
     this.setState({
       inputValue: ""
