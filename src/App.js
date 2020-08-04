@@ -1,13 +1,13 @@
 import React from 'react'
 import {HashRouter, Route} from 'react-router-dom'
-import TodoInput from './todoInputPage/TodoInput'
-import Finished from './finishPage/Finished.js'
+import TodoPage from './todoPage/TodoPage'
+import FinishPage from './finishPage/FinishPage.js'
 
 function App() {
   return <div>
     <HashRouter>
-      <Route exact path="/" component={TodoInput}></Route>
-      <Route path="/finished" component={Finished}></Route>
+      <Route exact path="/" component={TodoPage}></Route>
+      <Route path="/finished" component={FinishPage}></Route>
     </HashRouter>
   </div>
 }

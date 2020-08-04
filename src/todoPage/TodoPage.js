@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import TodoList from "../component/TodoList";
-import { addItem } from "../action/TodoListAction";
+import { addItem, initItem } from "../action/TodoListAction";
 import Menu from "../menu/Menu";
 import { connect } from "react-redux";
+import { requestItem } from "../network/index";
 
-class TodoInput extends Component {
+class TodoPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,12 +13,31 @@ class TodoInput extends Component {
     };
   }
 
+  componentDidMount() {
+    this.props.initItem()
+    requestItem({
+      method: "get",
+    }).then((result) => {
+      for (const data of result.data) {
+        this.props.addItem(data);
+      }
+    });
+  }
   handleAddValue = () => {
     if (this.state.inputValue === "") {
       alert("Can not be Blank!");
       return;
     }
-    this.props.addItem(this.state.inputValue);
+    requestItem({
+      method: 'post',
+      data: {
+        content: this.state.inputValue,
+        status: false
+      }
+    }).then((result) => {
+      this.props.addItem(result.data)
+      alert("Add Success!")
+    })
     this.setState({
       inputValue: "",
     });
@@ -48,6 +68,7 @@ class TodoInput extends Component {
 
 const mapDispatchToProps = {
   addItem,
+  initItem
 };
 
-export default connect(null, mapDispatchToProps)(TodoInput);
+export default connect(null, mapDispatchToProps)(TodoPage);

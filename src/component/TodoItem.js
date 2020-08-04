@@ -1,13 +1,28 @@
 import React, { Component } from "react";
+import {requestItem} from '../network'
 
 class TodoItem extends Component {
 
   handleDelete = () => {
-    this.props.deleteItem(this.props.index);
+    requestItem({
+      method:'delete',
+      url: '/' + this.props.id
+    }).then((result) => {
+      this.props.deleteItem(result.data.id);
+      alert("Delete Success!")
+    })
   };
 
   handleMark = () => {
-    this.props.markItem(this.props.index);
+    requestItem({
+      method: 'put',
+      url: '/' + this.props.id,
+      data: {
+        status: !this.props.todoItem.status
+      }
+    }).then((result) => {
+      this.props.markItem(result.data);
+    })
   };
 
   render() {
@@ -17,10 +32,10 @@ class TodoItem extends Component {
           <span
             onClick={this.handleMark}
             style={{
-              textDecorationLine: this.props.todoItem.mark ? "line-through" : "none",
+              textDecorationLine: this.props.todoItem.status ? "line-through" : "none",
             }}
           >
-            {this.props.todoItem.item}
+            {this.props.todoItem.content}
           </span>
           <button onClick={this.handleDelete}>X</button>
         </li>
