@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import TodoList from "../component/TodoList";
-import { addItem, initItem } from "../action/TodoListAction";
+import { addItem} from "../action/TodoListAction";
 import Menu from "../menu/Menu";
 import { connect } from "react-redux";
 import { requestItem } from "../network/index";
@@ -13,16 +13,6 @@ class TodoPage extends Component {
     };
   }
 
-  componentDidMount() {
-    this.props.initItem()
-    requestItem({
-      method: "get",
-    }).then((result) => {
-      for (const data of result.data) {
-        this.props.addItem(data);
-      }
-    });
-  }
   handleAddValue = () => {
     if (this.state.inputValue === "") {
       alert("Can not be Blank!");
@@ -67,8 +57,7 @@ class TodoPage extends Component {
 }
 
 const mapDispatchToProps = {
-  addItem,
-  initItem
+  addItem
 };
 
 export default connect(null, mapDispatchToProps)(TodoPage);

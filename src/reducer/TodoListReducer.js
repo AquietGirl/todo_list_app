@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { ADD_ITEM, DELETE_ITEM, MARK_ITEM,INIT } from "../action/actionType";
+import { ADD_ITEM, DELETE_ITEM, MARK_ITEM} from "../action/actionType";
 
 const defaultState = {
   todoList: [],
@@ -31,10 +31,5 @@ export default createReducer(defaultState, {
         return todoItem;
       }),
     };
-  },
-  [INIT]: () => {
-      return {
-          todoList: []
-      }
   }
 });

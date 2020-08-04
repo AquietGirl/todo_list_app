@@ -1,5 +1,5 @@
 import { createAction } from "@reduxjs/toolkit";
-import { ADD_ITEM, DELETE_ITEM, INIT, MARK_ITEM } from "./actionType";
+import { ADD_ITEM, DELETE_ITEM,MARK_ITEM } from "./actionType";
 
 export const addItem = createAction(ADD_ITEM, (item) => ({
   payload: {
@@ -16,5 +16,3 @@ export const deleteItem = createAction(DELETE_ITEM, (id) => ({
 export const markItem = createAction(MARK_ITEM, (index) => ({
     payload: index
 }));
-
-export const initItem = createAction(INIT)
