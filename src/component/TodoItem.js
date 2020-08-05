@@ -1,14 +1,12 @@
 import React, { Component } from "react";
-import { requestItem } from "../network";
+import todoApi, { requestItem } from "../network";
 import { Button, Typography, List } from "antd";
 
 class TodoItem extends Component {
   handleDelete = () => {
     // Todo extract
-    requestItem({
-      method: "delete",
-      url: "/" + this.props.id,
-    })
+    todoApi
+      .delete(`/${this.props.id}`)
       .then((result) => {
         this.props.deleteItem(result.data);
         alert("Delete Success!");
@@ -19,13 +17,8 @@ class TodoItem extends Component {
   };
 
   handleMark = () => {
-    requestItem({
-      method: "put",
-      url: "/" + this.props.id,
-      data: {
-        status: !this.props.todoItem.status,
-      },
-    })
+    todoApi
+      .put(`/${this.props.id}`, { status: !this.props.todoItem.status })
       .then((result) => {
         this.props.markItem(result.data);
       })
@@ -39,14 +32,14 @@ class TodoItem extends Component {
       <List.Item
         actions={[
           <Button
-            type="primary"
+            type="danger"
             size="small"
             shape="circle"
             key="list-loadmore-edit"
             onClick={this.handleDelete}
           >
             X
-          </Button>
+          </Button>,
         ]}
       >
         <Typography.Text

@@ -1,29 +1,30 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import TodoItem from '../../component/TodoItem'
-import {deleteItem, markItem} from '../../action/TodoListAction'
+import { deleteItem, markItem } from "../../action/TodoListAction";
+import { Col, Row, Typography } from "antd";
+import TodoList from "../../component/TodoList";
+
+const { Title } = Typography;
 
 class FinishPage extends Component {
   render() {
+    const finishList = this.props.todoList.filter((todoItem) => todoItem.status)
     return (
       <div>
-        <p>Finished</p>
-        <ul>
-          {/* Todo filter */}
-          {this.props.todoList.map((todoItem, index) => {
-            if (todoItem.status) {
-              return <TodoItem 
-                key={index} 
-                todoItem={todoItem} 
-                id={todoItem.id} 
-                deleteItem={this.props.deleteItem}
-                markItem={this.props.markItem}
-              />;
-            }
-            // Todo 
-            return null;
-          })}
-        </ul>
+        <Row>
+          <Col span={12} offset={6}>
+            <Title level={3} style={{textAlign: "center"}}>Finished</Title>
+          </Col>
+        </Row>
+        <Row>
+          <Col span={12} offset={6}>
+          <TodoList
+              deleteItem={this.props.deleteItem}
+              markItem={this.props.markItem}
+              todoList={finishList}
+            />
+          </Col>
+        </Row>
       </div>
     );
   }
@@ -37,7 +38,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   deleteItem,
-  markItem
-}
+  markItem,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(FinishPage);
