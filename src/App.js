@@ -5,7 +5,7 @@ import FinishPage from './page/finishPage/FinishPage.js'
 import {addItem} from './action/TodoListAction'
 import {requestItem} from './network'
 import { connect } from 'react-redux'
-import Menu from "./menu/Menu";
+import Menus from "./menu/Menus";
 
 class App extends React.Component {
 
@@ -25,9 +25,9 @@ class App extends React.Component {
   render() {
     return <div>
       <HashRouter>
-        <Menu />
+        <Menus />
         <Route exact path="/" component={TodoPage}></Route>
-        <Route path="/finished" component={FinishPage}></Route>
+        <Route exact path="/finished" component={FinishPage}></Route>
       </HashRouter>
   </div>
   }

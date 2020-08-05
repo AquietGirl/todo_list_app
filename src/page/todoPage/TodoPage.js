@@ -1,8 +1,13 @@
 import React, { Component } from "react";
 import TodoList from "../../component/TodoList";
-import { addItem, deleteItem, markItem} from "../../action/TodoListAction";
+import { addItem, deleteItem, markItem } from "../../action/TodoListAction";
 import { connect } from "react-redux";
 import { requestItem } from "../../network/index";
+import { Input } from "antd";
+import { Row, Col, Typography  } from "antd";
+
+const { Search } = Input;
+const { Title } = Typography;
 
 class TodoPage extends Component {
   constructor(props) {
@@ -18,20 +23,19 @@ class TodoPage extends Component {
       return;
     }
     requestItem({
-      method: 'post',
+      method: "post",
       data: {
         content: this.state.inputValue,
-        status: false
-      }
+        status: false,
+      },
     }).then((result) => {
-      this.props.addItem(result.data)
-      alert("Add Success!")
+      this.props.addItem(result.data);
+      alert("Add Success!");
       this.setState({
         inputValue: "",
       });
-    })
+    });
     // ToDo fail
-   
   };
 
   handleChange = (event) => {
@@ -43,19 +47,33 @@ class TodoPage extends Component {
   render() {
     return (
       <div>
-        <p>Todo</p>
-        <input
-          type="text"
-          value={this.state.inputValue}
-          onChange={this.handleChange}
-        />
-        <button onClick={this.handleAddValue}>ADD</button>
-        <TodoList 
-          addItem={this.props.addItem}
-          deleteItem={this.props.deleteItem}
-          markItem={this.props.markItem}
-          todoList={this.props.todoList}
-        />
+        <Row>
+          <Col span={12} offset={6} >
+            <Title level={3} style={{textAlign: "center"}}>ALL TODO LIST</Title>
+          </Col>
+        </Row>
+        <Row>
+          <Col span={12} offset={6}>
+            <Search
+              placeholder="input itrm text"
+              enterButton="ADD"
+              size="large"
+              value={this.state.inputValue}
+              onChange={this.handleChange}
+              onSearch={this.handleAddValue}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col span={12} offset={6}>
+            <TodoList
+              addItem={this.props.addItem}
+              deleteItem={this.props.deleteItem}
+              markItem={this.props.markItem}
+              todoList={this.props.todoList}
+            />
+          </Col>
+        </Row>
       </div>
     );
   }
@@ -63,14 +81,14 @@ class TodoPage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    todoList: state.todoList
+    todoList: state.todoList,
   };
 };
 
 const mapDispatchToProps = {
   addItem,
   deleteItem,
-  markItem
+  markItem,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoPage);
