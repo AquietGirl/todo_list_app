@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import TodoList from "../component/TodoList";
-import { addItem} from "../action/TodoListAction";
-import Menu from "../menu/Menu";
+import TodoList from "../../component/TodoList";
+import { addItem, deleteItem, markItem} from "../../action/TodoListAction";
 import { connect } from "react-redux";
-import { requestItem } from "../network/index";
+import { requestItem } from "../../network/index";
 
 class TodoPage extends Component {
   constructor(props) {
@@ -27,10 +26,12 @@ class TodoPage extends Component {
     }).then((result) => {
       this.props.addItem(result.data)
       alert("Add Success!")
+      this.setState({
+        inputValue: "",
+      });
     })
-    this.setState({
-      inputValue: "",
-    });
+    // ToDo fail
+   
   };
 
   handleChange = (event) => {
@@ -42,7 +43,6 @@ class TodoPage extends Component {
   render() {
     return (
       <div>
-        <Menu></Menu>
         <p>Todo</p>
         <input
           type="text"
@@ -50,14 +50,27 @@ class TodoPage extends Component {
           onChange={this.handleChange}
         />
         <button onClick={this.handleAddValue}>ADD</button>
-        <TodoList />
+        <TodoList 
+          addItem={this.props.addItem}
+          deleteItem={this.props.deleteItem}
+          markItem={this.props.markItem}
+          todoList={this.props.todoList}
+        />
       </div>
     );
   }
 }
 
-const mapDispatchToProps = {
-  addItem
+const mapStateToProps = (state) => {
+  return {
+    todoList: state.todoList
+  };
 };
 
-export default connect(null, mapDispatchToProps)(TodoPage);
+const mapDispatchToProps = {
+  addItem,
+  deleteItem,
+  markItem
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoPage);

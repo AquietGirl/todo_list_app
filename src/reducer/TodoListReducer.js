@@ -5,20 +5,21 @@ const defaultState = {
   todoList: [],
 };
 export default createReducer(defaultState, {
+    // ToDo get items 降序
   [ADD_ITEM]: (state, action) => ({
     todoList: [
-      ...state.todoList,
       {
         id: action.payload.id,
         content: action.payload.content,
         status: action.payload.status,
       },
+      ...state.todoList
     ],
   }),
   [DELETE_ITEM]: (state, action) => {
     return {
       todoList: state.todoList.filter(
-        (todoItem) => todoItem.id !== action.payload
+        (todoItem) => todoItem.id !== action.payload.id
       ),
     };
   },

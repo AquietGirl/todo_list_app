@@ -1,20 +1,26 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Menu from "../menu/Menu";
-import TodoItem from '../component/TodoItem'
-import {deleteItem} from '../action/TodoListAction'
+import TodoItem from '../../component/TodoItem'
+import {deleteItem, markItem} from '../../action/TodoListAction'
 
 class FinishPage extends Component {
   render() {
     return (
       <div>
-        <Menu></Menu>
         <p>Finished</p>
         <ul>
+          {/* Todo filter */}
           {this.props.todoList.map((todoItem, index) => {
             if (todoItem.status) {
-              return <TodoItem key={index} todoItem={todoItem} id={todoItem.id} deleteItem={this.props.deleteItem}/>;
+              return <TodoItem 
+                key={index} 
+                todoItem={todoItem} 
+                id={todoItem.id} 
+                deleteItem={this.props.deleteItem}
+                markItem={this.props.markItem}
+              />;
             }
+            // Todo 
             return null;
           })}
         </ul>
@@ -30,7 +36,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  deleteItem
+  deleteItem,
+  markItem
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FinishPage);

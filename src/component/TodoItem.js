@@ -4,12 +4,15 @@ import {requestItem} from '../network'
 class TodoItem extends Component {
 
   handleDelete = () => {
+    // Todo extract
     requestItem({
       method:'delete',
       url: '/' + this.props.id
     }).then((result) => {
-      this.props.deleteItem(result.data.id);
+      this.props.deleteItem(result.data);
       alert("Delete Success!")
+    }).catch((e) => {
+      console.log(e)
     })
   };
 
@@ -22,6 +25,8 @@ class TodoItem extends Component {
       }
     }).then((result) => {
       this.props.markItem(result.data);
+    }).catch((e) => {
+      console.log(e)
     })
   };
 
