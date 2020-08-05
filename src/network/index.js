@@ -1,15 +1,7 @@
 import axios from "axios";
 import { LOADING_TOGGLE } from "../action/actionType";
-import store from "../store";
-
-export function requestItem(config) {
-  const instance = axios.create({
-    baseURL: "https://5e9ec500fb467500166c4658.mockapi.io/todos",
-    timeout: 5000,
-  });
-
-  return instance(config);
-}
+import { loadingToggle } from "../action/LoadingAction";
+import store from '../store'
 
 const todoApi = axios.create({
   baseURL: `https://5e9ec500fb467500166c4658.mockapi.io/todos`,

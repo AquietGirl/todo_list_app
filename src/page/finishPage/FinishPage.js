@@ -32,7 +32,7 @@ class FinishPage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    todoList: state.todoList,
+    todoList: state.todo.todoList,
   };
 };
 
