@@ -1,18 +1,13 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { ADD_ITEM, DELETE_ITEM, MARK_ITEM} from "../action/actionType";
+import { ADD_ITEM, DELETE_ITEM, MARK_ITEM, SET_ITEMLIST} from "../action/actionType";
 
 const defaultState = {
   todoList: [],
 };
 export default createReducer(defaultState, {
-    // ToDo get items 降序
   [ADD_ITEM]: (state, action) => ({
     todoList: [
-      {
-        id: action.payload.id,
-        content: action.payload.content,
-        status: action.payload.status,
-      },
+      action.payload,
       ...state.todoList
     ],
   }),
@@ -32,5 +27,8 @@ export default createReducer(defaultState, {
         return todoItem;
       }),
     };
-  }
+  },
+  [SET_ITEMLIST]: (state, action) => ({
+      todoList: action.payload
+  })
 });

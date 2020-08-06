@@ -1,6 +1,5 @@
 import axios from "axios";
 import { LOADING_TOGGLE } from "../action/actionType";
-import { loadingToggle } from "../action/LoadingAction";
 import store from '../store'
 
 const todoApi = axios.create({

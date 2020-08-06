@@ -2,7 +2,7 @@ import React from "react";
 import { HashRouter, Route } from "react-router-dom";
 import TodoPage from "./page/todoPage/TodoPage";
 import FinishPage from "./page/finishPage/FinishPage.js";
-import { addItem } from "./action/TodoListAction";
+import { setItemList } from "./action/TodoListAction";
 import todoApi from "./network";
 import { connect } from "react-redux";
 import Menus from "./menu/Menus";
@@ -14,9 +14,7 @@ class App extends React.Component {
     todoApi
       .get()
       .then((result) => {
-        for (const data of result.data) {
-          this.props.addItem(data);
-        }
+        this.props.setItemList(result.data);
         this.props.loadingToggle()
       })
       .catch((e) => {
@@ -42,7 +40,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  addItem
+  setItemList
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

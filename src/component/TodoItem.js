@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import todoApi, { requestItem } from "../network";
+import todoApi from "../network";
 import { Button, Typography, List } from "antd";
 
 class TodoItem extends Component {
   handleDelete = () => {
-    // Todo extract
     todoApi
       .delete(`/${this.props.id}`)
       .then((result) => {
