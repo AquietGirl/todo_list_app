@@ -17,7 +17,7 @@ class TodoItem extends Component {
 
   handleMark = () => {
     todoApi
-      .put(`/${this.props.id}`, { status: !this.props.todoItem.status })
+      .put(`/${this.props.id}`, { content: this.props.todoItem.content ,status: !this.props.todoItem.status })
       .then((result) => {
         this.props.markItem(result.data);
       })
