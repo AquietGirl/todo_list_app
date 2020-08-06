@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import todoApi from "../network";
-import { Button, Typography, List } from "antd";
+import { Button, Typography, List, Switch } from "antd";
 
 class TodoItem extends Component {
   handleDelete = () => {
@@ -30,6 +30,7 @@ class TodoItem extends Component {
     return (
       <List.Item
         actions={[
+          <Switch onChange={this.handleMark} />,
           <Button
             type="danger"
             size="small"
@@ -38,11 +39,10 @@ class TodoItem extends Component {
             onClick={this.handleDelete}
           >
             X
-          </Button>,
+          </Button>
         ]}
       >
         <Typography.Text
-          onClick={this.handleMark}
           style={{
             textDecorationLine: this.props.todoItem.status
               ? "line-through"
