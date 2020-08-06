@@ -15,7 +15,7 @@ class TodoItem extends Component {
       });
   };
 
-  handleMark = () => {
+  handleMark = (checked) => {
     todoApi
       .put(`/${this.props.id}`, { content: this.props.todoItem.content ,status: !this.props.todoItem.status })
       .then((result) => {
@@ -30,7 +30,7 @@ class TodoItem extends Component {
     return (
       <List.Item
         actions={[
-          <Switch onChange={this.handleMark} />,
+          <Switch onChange={this.handleMark} checked={this.props.todoItem.status}/>,
           <Button
             type="danger"
             size="small"
